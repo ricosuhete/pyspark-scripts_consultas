@@ -1,0 +1,35 @@
+## Criando um pequeno DW
+
+# Carregando os dados 
+clientes = spark.read.load("/home/ricardo/download/Atividades/Clientes.parquet")
+vendas = spark.read.load("/home/ricardo/download/Atividades/Vendas.parquet")
+itensvendas = spark.read.load("/home/ricardo/download/Atividades/ItensVendas.parquet")
+produtos = spark.read.load("/home/ricardo/download/Atividades/Produtos.parquet")
+vendedores = spark.read.load("/home/ricardo/download/Atividades/Vendedores.parquet")
+
+# Criando a base do DW
+spark.sql("create database VendasVarejo")
+
+# Entrando na base do DW
+spark.sql("use VendasVarejo")
+
+#Persistindo dentro do mini DW
+clientes.write.saveAsTable("clientes")
+vendas.write.saveAsTable("vendas")
+itensvendas.write.saveAsTable("itensvendas")
+produtos.write.saveAsTable("produtos")
+vendedores.write.saveAsTable("vendedores")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
