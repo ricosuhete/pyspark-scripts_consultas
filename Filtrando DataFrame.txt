@@ -1,0 +1,13 @@
+clientes = spark.read.load("/home/ricardo/download/Atividades/Clientes.parquet")
+vendas = spark.read.load("/home/ricardo/download/Atividades/Vendas.parquet")
+
+from pyspark.sql import functions as Func
+
+#1 Cria uma consulta que mostra, Cliente, Estados e Status
+clientes.select("Cliente","Estado","Status").show()
+
+#2 Cria uma consulta que mostra os clientes do Status “platinum” e “gold”
+clientes.select("*").where( (Func.col("Status") == "Gold") | (Func.col("Status") == "Platinum") ).show()
+
+#3 Mostra quanto cada Status de Clientes representa em vendas
+vendas.join(clientes,vendas.ClienteID ==clientes.ClienteID ).groupBy(clientes.Status).agg(sum("Total")).orderBy(Func.col("sum(Total)").desc())
