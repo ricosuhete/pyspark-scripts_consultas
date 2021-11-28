@@ -1,0 +1,14 @@
+## Consultando dentro do mini DW
+# Chamando o spark-sql
+spark-sql;
+
+# Usando a base do DW
+use vendasvarejo;
+
+# Filtrando entre as diversas tabelas do DW
+select c.cliente, v.Data, p.Produto, vd.Vendedor, iv.ValorTotal
+from itensvendas iv
+inner join produtos p on (p.Produtoid = iv.Produtoid)
+inner join vendas v on (v.VendasID = iv.VendasID)
+inner join vendedores vd on (vd.vendedorID = v.vendedorID)
+inner join clientes c on (c.clienteid = v.clienteid);
